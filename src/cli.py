@@ -117,7 +117,9 @@ def balances(chain, currency):
                     print("{:>10} |".format("N/A"), end=" ")
                     print("{:>15}".format("N/A"))
     except Exception:
-        click.secho("Sorry, something wrong happened!", fg="red")
+        click.secho(
+            "Sorry, something wrong happened!\nTry running `python main.py setup` again", fg="red"
+        )
 
 
 @rotki.command()
@@ -145,7 +147,9 @@ def transactions():
                 print("{:>13} |".format(txn[4]), end=" ")
                 print("{:>20} |".format(txn[5]))
     except Exception:
-        click.secho("Sorry, something wrong happened!", fg="red")
+        click.secho(
+            "Sorry, something wrong happened!\nTry running `python main.py setup` again.", fg="red"
+        )
 
 
 @rotki.command()
@@ -154,11 +158,8 @@ def transactions():
 def all(ctx, currency):
     """This command performs all of the above commmands except `setup`."""
 
-    try:
-        ctx.invoke(balances, chain="btc", currency=currency)
-        print("\n\n")
-        ctx.invoke(balances, chain="eth", currency=currency)
-        print("\n\n")
-        ctx.invoke(transactions)
-    except Exception:
-        click.secho("Sorry, something wrong happened!", fg="red")
+    ctx.invoke(balances, chain="btc", currency=currency)
+    print("\n\n")
+    ctx.invoke(balances, chain="eth", currency=currency)
+    print("\n\n")
+    ctx.invoke(transactions)
