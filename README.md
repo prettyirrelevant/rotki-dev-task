@@ -22,7 +22,7 @@ $ pip install -r requirements.txt
 $ python cli.py setup
 ```
 
-- Get BTC balances(This takes approximately 5 seconds).
+- Get BTC balances(This takes approximately 5 seconds). `currency` can be one of `usd`, `eur`, `gpb`, `ngn`, `cad`, `chf`, etc.
 ```sh
 $ python cli.py balances --chain=btc --currency=ngn
 ```
@@ -37,7 +37,7 @@ $ python cli.py balances --chain=eth --currency=ngn
 $ python cli.py transactions
 ```
 
-- Display all information
+- Display all information. `currency` can be one of `usd`, `eur`, `gpb`, `ngn`, `cad`, `chf`, etc.
 ```sh
 $ python cli.py all --currency=ngn
 ```
