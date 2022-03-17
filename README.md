@@ -19,32 +19,32 @@ $ pip install -r requirements.txt
 
 - Start the CLI application.
 ```sh
-$ python cli.py setup
+$ python main.py setup
 ```
 
 - Get BTC balances(This takes approximately 5 seconds). `currency` can be one of `usd`, `eur`, `gpb`, `ngn`, `cad`, `chf`, etc.
 ```sh
-$ python cli.py balances --chain=btc --currency=ngn
+$ python main.py balances --chain=btc --currency=ngn
 ```
 
 - Get ETH balances and token balances(This takes approximately 40 seconds). `currency` can be one of `usd`, `eur`, `gpb`, `ngn`, `cad`, `chf`, etc.
 ```sh
-$ python cli.py balances --chain=eth --currency=ngn
+$ python main.py balances --chain=eth --currency=ngn
 ```
 
 - Get ETH transactions of the inputted ETH addresses
 ```sh
-$ python cli.py transactions
+$ python main.py transactions
 ```
 
 - Display all information. `currency` can be one of `usd`, `eur`, `gpb`, `ngn`, `cad`, `chf`, etc.
 ```sh
-$ python cli.py all --currency=ngn
+$ python main.py all --currency=ngn
 ```
 
 - Need help running one of the command?
 ```sh
-$ python cli.py balances --help
+$ python main.py --help
 ```
 ## Features Implemented
 
@@ -69,3 +69,9 @@ $ python cli.py balances --help
 - Only the latest 25 transactions are returned for ETH transactions for a specific address.
 - For the token balances of an ETH address, an `assets.json` which contains `contract address` and `decimals` of several tokens(70 tokens to be precise).
 - To detect a swap & token transfer for ETH transactions, the first 8 hex characters(after removing the prefix `0x`) is used to get the function name. These characters are then sent the 4Byte Directory API and the name of the function is returned(`swapETHForExactTokens` represents "SWAP" while `transfer` represents a "TRANSFER"). All other contract calls are disregarded.
+
+## Testing
+To run test suite, run the command below
+```sh
+$ python -m unittest discover -s tests -v
+```

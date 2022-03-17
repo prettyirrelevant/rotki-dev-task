@@ -16,11 +16,12 @@ r = requests.Session()
 DB_NAME = "rotki-dev-task.db"
 
 
-def initialise_database() -> None:
+def initialise_database(db_name=None) -> None:
     """Sets up the database by first clearing the present if it exists."""
     delete_database()
 
-    connection = sqlite3.connect(DB_NAME)
+    db_name = db_name if db_name else DB_NAME
+    connection = sqlite3.connect(db_name)
     cursor = connection.cursor()
 
     cursor.execute(
@@ -49,10 +50,11 @@ def initialise_database() -> None:
     cursor.close()
 
 
-def delete_database() -> None:
+def delete_database(db_name=None) -> None:
     """Deletes an already existing database."""
-    if os.path.isfile(DB_NAME):
-        os.remove(DB_NAME)
+    db_name = db_name if db_name else DB_NAME
+    if os.path.isfile(db_name):
+        os.remove(db_name)
 
 
 def add_eth_transaction(payload: Dict[str, str]) -> None:

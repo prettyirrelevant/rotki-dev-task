@@ -1,7 +1,7 @@
 import click
 from eth_utils.address import is_address as is_valid_eth_address
 
-from utils import (
+from .utils import (
     add_address,
     fetch_currency_price,
     fetch_eth_transactions,
@@ -20,7 +20,7 @@ def rotki():
     """
     Rotki Dev Task.
 
-    Note: Run `python cli.py setup` first.
+    Note: Run `python main.py setup` first.
     """
 
 
@@ -152,7 +152,3 @@ def all(ctx, currency):
         ctx.invoke(transactions)
     except Exception:
         click.secho("Sorry, something wrong happened!", fg="red")
-
-
-if __name__ == "__main__":
-    rotki()
