@@ -236,13 +236,13 @@ def decode_eth_txn_input(data: Dict[str, Any]) -> Dict[str, Any]:
                 data["tx_type"] = "TRANSFER"
                 return data
             else:
-                data["tx_type"] = "UNKNOWN"
+                data["tx_type"] = "N/A"
                 return data
         except IndexError:
-            data["tx_type"] = "UNKNOWN"
+            data["tx_type"] = "N/A"
             return data
     else:
-        data["tx_type"] = "UNKNOWN"
+        data["tx_type"] = "N/A"
         return data
 
 

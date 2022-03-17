@@ -138,5 +138,21 @@ def transactions():
         click.secho("Sorry, something wrong happened!", fg="red")
 
 
+@rotki.command()
+@click.option("-cur", "--currency", default="USD", show_default=True)
+@click.pass_context
+def all(ctx, currency):
+    """This command performs all of the above commmands except `setup`."""
+
+    try:
+        ctx.invoke(balances, chain="btc", currency=currency)
+        print("\n\n")
+        ctx.invoke(balances, chain="eth", currency=currency)
+        print("\n\n")
+        ctx.invoke(transactions)
+    except Exception:
+        click.secho("Sorry, something wrong happened!", fg="red")
+
+
 if __name__ == "__main__":
     rotki()
