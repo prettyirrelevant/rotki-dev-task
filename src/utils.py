@@ -16,11 +16,11 @@ r = requests.Session()
 DB_NAME = "rotki-dev-task.db"
 
 
-def initialise_database(db_name=None) -> None:
+def initialise_database() -> None:
     """Sets up the database by first clearing the present if it exists."""
     delete_database()
 
-    db_name = db_name if db_name else DB_NAME
+    db_name = DB_NAME
     connection = sqlite3.connect(db_name)
     cursor = connection.cursor()
 
@@ -50,14 +50,14 @@ def initialise_database(db_name=None) -> None:
     cursor.close()
 
 
-def delete_database(db_name=None) -> None:
+def delete_database() -> None:
     """Deletes an already existing database."""
-    db_name = db_name if db_name else DB_NAME
+    db_name = DB_NAME
     if os.path.isfile(db_name):
         os.remove(db_name)
 
 
-def add_eth_transaction(payload: Dict[str, str]) -> None:
+def add_eth_transaction(payload: Dict[str, str]) -> int:
     """Adds an ethereum transaction to the table `eth_transaction`."""
     connection = sqlite3.connect(DB_NAME)
     cursor = connection.cursor()
@@ -72,8 +72,10 @@ def add_eth_transaction(payload: Dict[str, str]) -> None:
     connection.commit()
     cursor.close()
 
+    return connection.total_changes
 
-def add_address(payload: Dict[str, str]) -> None:
+
+def add_address(payload: Dict[str, str]) -> int:
     """Stores an address(either BTC or ETH) to database."""
     connection = sqlite3.connect(DB_NAME)
     cursor = connection.cursor()
@@ -87,6 +89,8 @@ def add_address(payload: Dict[str, str]) -> None:
     )
     connection.commit()
     cursor.close()
+
+    return connection.total_changes
 
 
 def get_addresses_by_chain(chain: str) -> list:
@@ -174,7 +178,7 @@ def get_btc_balance(address: str) -> decimal.Decimal:
 
 def get_eth_token_balances(address: str) -> Dict[str, str]:
     """This function returns all the balances of tokens of the specified address in the `assets.json`."""
-    tokens = json.load(open("assets.json"))
+    tokens = json.load(open(os.path.join(os.path.dirname(__file__), "assets.json")))
 
     balances = []
 

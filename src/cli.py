@@ -95,17 +95,27 @@ def balances(chain, currency):
             )
             click.secho("- " * 45, fg="green", bold=True)
             for addr in addresses:
+                eth_balance = get_eth_balance(addr[1])
                 token_balances = get_eth_token_balances(addr[1])
-                for token in token_balances:
-                    eth_balance = get_eth_balance(addr[1])
+                if token_balances:
+                    for token in token_balances:
+                        print("{:11} |".format(humanize_hash_or_addr(addr[1])), end=" ")
+                        print("{:>20} |".format(eth_balance), end=" ")
+                        print(
+                            "{:>20} |".format(fetch_currency_price(chain, currency, eth_balance)),
+                            end=" ",
+                        )
+                        print("{:>10} |".format(token["name"]), end=" ")
+                        print("{:>15}".format(token["amount"]))
+                else:
                     print("{:11} |".format(humanize_hash_or_addr(addr[1])), end=" ")
                     print("{:>20} |".format(eth_balance), end=" ")
                     print(
                         "{:>20} |".format(fetch_currency_price(chain, currency, eth_balance)),
                         end=" ",
                     )
-                    print("{:>10} |".format(token["name"]), end=" ")
-                    print("{:>15}".format(token["amount"]))
+                    print("{:>10} |".format("N/A"), end=" ")
+                    print("{:>15}".format("N/A"))
     except Exception:
         click.secho("Sorry, something wrong happened!", fg="red")
 

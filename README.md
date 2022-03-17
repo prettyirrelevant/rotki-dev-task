@@ -27,7 +27,7 @@ $ python main.py setup
 $ python main.py balances --chain=btc --currency=ngn
 ```
 
-- Get ETH balances and token balances(This takes approximately 40 seconds). `currency` can be one of `usd`, `eur`, `gpb`, `ngn`, `cad`, `chf`, etc.
+- Get ETH balances and token balances(This takes approximately 40 seconds for a single address). `currency` can be one of `usd`, `eur`, `gpb`, `ngn`, `cad`, `chf`, etc.
 ```sh
 $ python main.py balances --chain=eth --currency=ngn
 ```
